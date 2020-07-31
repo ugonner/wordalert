@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "646390458976",
+    "firebase_url": "https://word-alive.firebaseio.com",
+    "project_id": "word-alive",
+    "storage_bucket": "word-alive.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646390458976:android:4f32da9cbff3b847",
+        "android_client_info": {
+          "package_name": "com.wordalive.ugonna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646390458976-1af0vgkd6aspout93m8505mm70asi3pe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf-phYPVt53vopqLJevXZUJQ6wO3w4U4s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

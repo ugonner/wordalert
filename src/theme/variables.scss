@@ -22,8 +22,40 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
+//POPOVER;
+$card-ios-background-color: transparent;
+$card-wp-background-color:  #456;
+$card-md-background-color: transparent;
+//alert variables
+$alert-md-background-color: #456;
+$alert-ios-background: #456;
+$alert-wp-background: #456;
+
+$alert-ios-button-background-color: #234;
+$alert-md-button-background-color: #234;
+$alert-wp-button-background: #234;
+
+$alert-ios-button-text-color: #999;
+$alert-md-button-text-color: #999;
+
+$alert-ios-message-text-color: #ffffff;
+$alert-md-message-text-color: #fff;
+$alert-wp-message-text-color: #fff;
+
+$alert-input-background-color: #222;
+$alert-md-input-text-color: #222;
+$alert-wp-input-text-color: #222;
 
 
+$alert-md-input-text-color: #fff; $alert-md-radio-label-text-color: #fff;
+
+
+//for spinners;
+$spinner-ios-crescent-color: #fff;
+$loading-wp-spinner-crescent-color: #fff;
+$spinner-md-crescent-color: #fff;
+//for button segments;
+$segment-button-md-text-color-activated: #ffff00;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -40,7 +72,6 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222
 );
-
 
 // App iOS Variables
 // --------------------------------------------------

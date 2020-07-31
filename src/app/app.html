@@ -1,1 +1,91 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]='nav1' id='menu1' persistent='true'>
+<ion-header>
+    <button ion-item menuClose>
+        <ion-icon name="close" item-right></ion-icon>
+    </button>
+    <ion-toolbar style="font-family: cursive; color: #345;">
+
+
+        <div style="text-align: center;">
+            <ion-avatar dark>
+                <span style="font-size: 4em;">
+                     <ion-icon name="book"></ion-icon>
+                </span>
+            </ion-avatar>
+            <span>WordAlert <sup><ion-icon name="alarm"></ion-icon></sup></span>
+        </div>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list no-lines>
+        <ion-item (click)="pushPage('MainpagePage')">
+            <ion-icon name="home"></ion-icon>
+        <span padding>Home</span>
+        </ion-item>
+
+        <ion-item (click)="pushPage('WelcomePage')">
+            <ion-icon name="book"></ion-icon>
+            <span padding>Read Bible</span>
+        </ion-item>
+
+
+        <ion-item (click)="pushPage('AlarmPage')">
+            <ion-icon name="construct"></ion-icon>
+        <span padding>Set Word-Alerts</span>
+        </ion-item>
+
+        <ion-item (click)="pushPage('AlarmlistPage')">
+            <ion-icon name="alarm"></ion-icon>
+            <span padding>My Word Alerts</span>
+        </ion-item>
+
+        <ion-item (click)="pushPage('PastorsPage')">
+            <ion-icon name="person-add"></ion-icon>
+            <span padding>Pastors</span>
+        </ion-item>
+
+        <ion-item  (click)="pushPage('PrayergroupsPage')">
+            <ion-icon name="contacts"></ion-icon>
+            <span padding>Prayer Groups</span>
+        </ion-item>
+
+
+    </ion-list>
+
+    <ion-list>
+        <ion-title>
+            <ion-item no-lines>
+            User Tray <ion-icon name="settings" item-right></ion-icon>
+        </ion-item>
+        </ion-title>
+
+        <ion-item no-lines (click)="pushPage('UserprofilePage')">
+            <ion-icon name="contact"></ion-icon>
+            <span padding>My Profile</span>
+            <ion-icon item-right name="forward-arrow"></ion-icon>
+        </ion-item>
+
+        <ion-item *ngIf="LoggedOut" no-lines (click)="loginUser()">
+        <ion-icon name="log-in"></ion-icon>
+        <span padding>Log In</span>
+        </ion-item>
+
+        <ion-item *ngIf="!LoggedOut" no-lines (click)="logOutUser()">
+            <ion-icon name="log-in"></ion-icon>
+            <span padding>Log Out</span>
+        </ion-item>
+
+    </ion-list>
+</ion-content>
+</ion-menu>
+
+
+<ion-nav [root]="rootPage" #nav1 id="nav1"></ion-nav>
+
+<ion-footer  style="text-align: center; color: #ffffff;">
+    <ion-toolbar color="dark">
+        <div>
+            &copy; ugonna
+        </div>
+    </ion-toolbar>
+</ion-footer>

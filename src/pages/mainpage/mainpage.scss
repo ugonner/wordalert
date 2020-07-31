@@ -1,0 +1,35 @@
+page-mainpage {
+  #filluprow{
+    /*height: 30%;*/
+    height: 100px;
+  }
+  .menubtns ion-icon{
+    font-size: 2em;
+  }
+  .menubtns:hover{
+    transform: rotate3d(0,1,1,60deg);
+  }
+  #mainbtn ion-icon{
+    font-size: 5em;
+  }
+
+  #mainbtn{
+    transition: transform 4s;
+  }
+
+  #mainbtn:hover{
+    transform: none;
+  }
+
+  .centerdivs{
+    background: gray;
+  }
+  .enddivs{
+    background: #242;
+  }
+
+  /*.slideddivs{
+    text-align: center;
+    transform: skewX(75deg);
+  }*/
+}

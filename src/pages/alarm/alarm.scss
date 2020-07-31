@@ -1,0 +1,40 @@
+page-alarm{
+  textarea{
+    background: transparent !important;
+    width: 100%;
+  }
+  .timebadges{
+    border-radius: 50%;
+    background: #768;
+  }
+  input{
+    color: #ffffff !important;
+  }
+/*  .slide-zoom {
+    height: 100%;
+  }*/
+  ion-slide{
+    height: auto !important;
+  }
+    #activebutton{
+      color: #ff0;
+      text-decoration: underline !important;
+      -webkit-transition: font-size 4s;
+      -moz-transition: font-size 4s;
+      -ms-transition: font-size 4s;
+      -o-transition: font-size 4s;
+      transition: font-size 4s;
+    }
+
+  #activebutton:focus{
+    font-size: 1.5em !important;
+  }
+
+  .timelabels{
+    color: yellow !important;
+  }
+  .slide-zoom{
+    height: 100% !important; text-align: left !important;
+  }
+}
+

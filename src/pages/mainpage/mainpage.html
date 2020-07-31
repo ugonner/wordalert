@@ -1,0 +1,133 @@
+<!--
+  Generated template for the MainpagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-item no-lines>
+            <ion-title>Word World</ion-title>
+            <button item-right ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="DisplaySpinner" style="text-align: center;">
+        <ion-spinner></ion-spinner>
+    </div>
+    <ion-grid style="text-align: center;">
+        <ion-row class="endrows">
+            <ion-col col-4 (click)="pushPage('WelcomePage', {})" class="menubtns enddivs">
+                <br>
+                    <ion-icon name="microphone"></ion-icon>
+                    <br><small><b>Read Bible</b></small>
+                <br>&nbsp;
+            </ion-col>
+            <ion-col col-4 (click)="pushPage('AlarmPage', {})"  class="menubtns centerdivs">
+                <br>
+                    <span>
+                        <ion-icon name="construct" large></ion-icon>
+                        <sup><ion-icon name="alarm"></ion-icon></sup>
+                    </span>
+                    <br><small><b>set Alarms</b></small>
+                <br>&nbsp;
+            </ion-col>
+            <ion-col col-4 (click)="pushPage('AlarmlistPage', {})"  class="menubtns enddivs">
+                <br>
+                    <ion-icon name="alarm"></ion-icon>
+                    <br><small><b>My Alarms</b></small>
+                <br>&nbsp;
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="midrows">
+            <ion-col col-2  style="padding: 0;" class="menubtns">
+                <div (click)="pushPage('PastorsPage', {})" class="menubtns enddivs">
+                    <br>
+                        <ion-icon name="person-add"></ion-icon>
+                        <br><small>Pastors</small>
+                    <br>&nbsp;
+                </div>
+                <div (click)="pushPage('PrayergroupsPage', {})" class="menubtns enddivs">
+                    <br>
+                    <ion-icon name="contacts"></ion-icon>
+                    <br><small>Prayer Groups</small>
+                    <br>&nbsp;
+                </div>
+            </ion-col>
+            <ion-col col-8 id="mainbtn" class="centerdivs" (dblclick)="readRandomPassage()">
+                <ion-icon name="megaphone" large padding></ion-icon>
+                <br><span>word of the moment</span>
+            </ion-col>
+            <ion-col col-2 class=" menubtns" style="padding: 0;">
+                <div (click)="pushPage('PrayersPage', {prayertypeid: 1})" class="menubtns enddivs">
+                <br>
+                    <ion-icon name="person-add"></ion-icon>
+                    <br><small>Prayers</small>
+                <br>&nbsp;
+                </div>
+                <div (click)="pushPage('PrayersPage', {prayertypeid: 2})" class="menubtns enddivs">
+                <br>
+                    <ion-icon name="contacts"></ion-icon>
+                    <br><small>Testimonies</small>
+                <br>&nbsp;
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="endrows">
+            <ion-col col-4 (click)="pushPage('WelcomePage', {})" class="menubtns enddivs">
+            <br>
+                <ion-icon name="microphone"></ion-icon>
+                <br><small><b>Read Bible</b></small>
+            <br>&nbsp;
+            </ion-col>
+
+            <ion-col col-4 (click)="pushPage('AlarmPage', {})"  class="menubtns centerdivs">
+            <br>
+                    <span>
+                        <ion-icon name="construct" large></ion-icon>
+                        <sup><ion-icon name="alarm"></ion-icon></sup>
+                    </span>
+                    <br><small><b>set Alarms</b></small>
+            <br>&nbsp;
+            </ion-col>
+
+            <ion-col col-4 (click)="pushPage('AlarmlistPage', {})"  class="menubtns enddivs">
+            <br>
+                <ion-icon name="alarm"></ion-icon>
+                <br><small><b>My Alarms</b></small>
+            <br>&nbsp;
+            </ion-col>
+        </ion-row>
+        <ion-row id="filluprow">
+            <ion-col col-4 class="enddivs">
+                &nbsp;
+            </ion-col>
+            <ion-col col-4 class="centerdivs">
+                &nbsp;
+            </ion-col>
+            <ion-col col-4 class="enddivs">
+                &nbsp;
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!--<div style="height: 100px; font-size: 5em;">
+        <div class="slideddivs">
+            <span><ion-icon name="microphone"></ion-icon></span>
+        </div>
+
+    </div>-->
+
+</ion-content>
+<!--<ion-footer  style="text-align: center; color: #ffffff;">
+    <ion-toolbar color="dark">
+        <div>
+            &copy; ugonna
+        </div>
+    </ion-toolbar>
+</ion-footer>-->

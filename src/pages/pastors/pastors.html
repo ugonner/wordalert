@@ -1,0 +1,75 @@
+<!--
+  Generated template for the AlarmlistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-toolbar color="dark">
+        <ion-title>Pastors</ion-title>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="DisplaySpinner" style="text-align: center;">
+    <ion-spinner></ion-spinner><br>
+    {{LoadingMessage}}
+    </div>
+    <ion-segment>
+        <ion-segment-button value="1" (click)="getAllPastors()" >
+            <span>
+                <!--<ion-icon name="archive"></ion-icon><br>-->
+            <small>All pastor</small>
+            </span>
+        </ion-segment-button>
+        <ion-segment-button value="2" (click)="displayUserPastors()">
+            <span>
+                <!--<ion-icon name="person"></ion-icon><br>-->
+            <small>My pastors</small>
+            </span>
+        </ion-segment-button>
+
+        <ion-segment-button value="3" (click)="retrieveUserPastors()">
+        <!--<ion-icon name="download"></ion-icon><br>-->
+        <small>ReStore All My Pastors</small>
+        </ion-segment-button>
+    </ion-segment>
+
+    <div padding></div>
+
+    <ion-list *ngIf="DisplayUserpastors" item-text-wrap>
+    <!--<span>
+        {{ClassMessage}}
+    </span>-->
+    <ion-item no-lines *ngFor= "let pastor of UserPastors; let i = index;" trackBy="trackpastor">
+    <span (click)="pushPage('PastorPage', {pastorid: pastor.pastorid})">
+    <img src="{{http.hostdomain + pastor.profilepic}}" class="avatar-size-images" />
+    Pst. {{pastor.firstname.toLowerCase()}} {{pastor.surname.toLowerCase()}}
+    </span>
+    <br>
+    <small>{{pastor.ministryname}}</small>
+    <ion-icon (click)="presentLeavepastorAlert(pastor.pastorid, i)" name="walk" item-right></ion-icon>
+    </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="DisplayAllpastors" item-text-wrap>
+        <!--<span>
+            {{ClassMessage}}
+        </span>-->
+    <ion-item no-lines *ngFor= "let pastor of Pastors; let i = index;" trackBy="trackpastor">
+    <span (click)="pushPage('PastorPage', {pastorid: pastor.pastorid})">
+    <img src="{{http.hostdomain + pastor.profilepic}}" class="avatar-size-images" />
+    {{pastor.firstname.toLowerCase()}} {{pastor.surname.toLowerCase()}}
+    </span>
+    <br>
+    <small>{{pastor.ministryname}}</small>
+
+    </ion-item>
+    </ion-list>
+</ion-content>

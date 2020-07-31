@@ -1,0 +1,186 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+    <ion-toolbar color="dark">
+        <ion-item no-lines>
+            <ion-title>Word World</ion-title>
+            <button item-right ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="microphonediv" id="microphonedivportrait" style="padding: 0;">
+        <span style="text-align: center; border-radius: 50%; background: #466;
+            position: absolute; top: 0; left: 0; z-index: 2;" (click)="clearQuotation()" padding>
+            <ion-icon name="backspace"></ion-icon><br>
+        </span>
+        <div>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-12 (dblclick)="readPassage()" (swipe)="getQuotationFromSpeech()"  style="padding: 0; ">
+                        <ion-icon style="font-size: 7em;"  name="microphone" padding></ion-icon>
+                        <br><span style="font-family: cursive;" >Swipe, Speak!</span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <div>
+                <ion-item no-lines>
+                    <span (click)="readRandomPassage()" item-right>
+                    <ion-icon name="megaphone"></ion-icon>
+                    </span>
+
+                    <span (click)="pushPage('AlarmPage')" padding item-right>
+                    <ion-icon name="alarm"></ion-icon>
+                    </span>
+
+
+                    <span (click)="toggleDisplaySetPassage()" item-right>
+                    <ion-icon name="book"></ion-icon>
+                    </span>
+                </ion-item>
+
+            </div>
+            <!--<ion-grid>
+                <ion-row style="color: #ff0; border-top: 2px solid #345; padding: 0;">
+                    <ion-col col-4 class="icondivs1" (click)="readRandomPassage()" padding>
+                        <ion-icon name="megaphone"></ion-icon><br>
+                        <small style="font-size: 0.7em;">Wordt</small>
+                    </ion-col>
+
+                    <ion-col col-4 class="icondivs1" (click)="pushPage('AlarmPage')" padding>
+                        <ion-icon name="alarm"></ion-icon><br>
+                        <small style="font-size: 0.7em;">Alarm</small>
+                    </ion-col>
+                    <ion-col col-4 class="icondivs1" (click)="toggleDisplaySetPassage()" padding>
+                        <ion-icon name="book"></ion-icon><br>
+                        <small style="font-size: 0.7em;">Passage</small>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>-->
+        </div>
+
+
+        <!--<ion-grid>
+            <ion-row style="position: relative;">
+                <ion-col col-12 (dblclick)="readPassage()" (swipe)="getQuotationFromSpeech()"  style="padding: 0; ">
+                    <ion-icon style="font-size: 7em;"  name="microphone" padding></ion-icon>
+                    <br><span style="font-family: cursive;" >Swipe, Speak!</span>
+                </ion-col>
+                <ion-col col-12 style="position: relative;">
+
+                    <div style="position: absolute; top: 0; right: 0">
+                        <ion-col col-9></ion-col>
+
+                        <ion-col col-3 style=" color: #ff0; border-left: 2px solid #345; padding: 0;" padding>
+                            <div class="icondivs1" (click)="readRandomPassage()" padding>
+                                <ion-icon name="megaphone"></ion-icon>
+                            </div>
+
+                            <div class="icondivs1" (click)="pushPage('AlarmPage')" padding>
+                                <ion-icon name="alarm"></ion-icon>
+                            </div>
+                            <div class="icondivs1" (click)="toggleDisplaySetPassage()" padding>
+                                <ion-icon name="book"></ion-icon>
+                            </div>
+                    </ion-col>
+
+                </div>
+            </ion-row>
+        </ion-grid>-->
+    </div>
+
+    <div *ngIf="DisplaySpinner" style="text-align: center">
+        <ion-spinner></ion-spinner><br>
+        {{LoadingMessage}}
+    </div>
+    <div style="text-align: center;">
+        <p *ngIf="QuotationBook != 'undefined'">
+            <b>Passage: {{Quotation}}</b>
+            <br>Book:{{QuotationBook}} chapter: {{QuotationChapter}} verse: {{QuotationVerse1}}
+        </p>
+        <p>
+            {{PassageText}}
+        </p>
+    </div>
+
+
+    <ion-grid *ngIf="displaySetPassageForm">
+        <ion-row>
+            <ion-col>
+                <ion-item no-lines text-wrap>
+                    <ion-label floating>Book</ion-label>
+                    <ion-input type="text" [(ngModel)]="QuotationBook">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-lg-4>
+                <ion-item no-lines text-wrap>
+                    <ion-label floating>Chapter</ion-label><br>
+                    <ion-input type="tel" [(ngModel)]="QuotationChapter">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col col-lg-4>
+                <ion-item no-lines text-wrap>
+                    <ion-label floating>Verse :</ion-label>
+                    <ion-input type="tel"  [(ngModel)]="QuotationVerse1">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col col-lg-4>
+                <ion-item no-lines text-wrap>
+                    <ion-label floating>To Verse</ion-label>
+                    <ion-input type="tel" [(ngModel)]="QuotationVerse2">
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    <ion-row>
+        <ion-col style="text-align: center;" padding><br>
+            <span (click)="readPassage()" style="border-radius: 50%; font-size: 2em; background: #466;" padding>
+            <ion-icon  name="megaphone"></ion-icon>
+            </span>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+
+    <div padding>
+        <ion-item no-lines>
+            <span item-right style="background: #344; border-radius: 50%;" padding>
+                <ion-icon name="alert"></ion-icon>
+            </span> &nbsp;&nbsp;&nbsp; App Brief
+        </ion-item>
+        <div>
+            Swipe on the mic to speak a quotation to be read out for you.
+            <p padding>
+                <small>
+                    Swipe first: Speak the Quotation Book, eg: "John" <br>
+                    Swipe Second: Speak the Quotation Chapter <br>
+                    Swipe Third: Speak the Quotation From-Verse <br>
+                    Swipe Fourth: Speak the Quotation To-Verse <br>
+
+                    <br><br>
+                    Double-click on mic to hear the bible quotation text.
+                    <br>Click on the backspace icon on the top left to clear quotations: maybe to re-enter new ones.
+                </small>
+            </p>
+
+        icons on the right:
+        <p padding>
+            <small>
+                click on the speaker to hear a random bible passage;
+                <br> click on the alarm icon to set an alarm with either a quotation or your proclamations<br>
+                - alarm texts will be read out to you at your set time.
+            </small>
+        </p>
+        </div>
+        <span>
+            Go on, Get more opportunities to watch with the <b>Word!</b>
+            Set up alert for any verse to have a feel.
+        </span>
+    </div>
+</ion-content>

@@ -1,0 +1,91 @@
+<!--
+  Generated template for the MinistryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header xmlns="http://www.w3.org/1999/html">
+
+  <ion-navbar color="dark">
+    <ion-title>Ministry</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="IsAdmin">
+        <ion-item no-lines>
+            <ion-icon item-right (click)="toggleDisplayEditForms()" name="create"></ion-icon>
+        </ion-item>
+    </div>
+
+
+    <div *ngIf="DisplaySpinner" style="text-align: center;">
+    <ion-spinner></ion-spinner><br>
+    {{LoadingMessage}}
+    </div>
+
+    <div>
+        <ion-item no-lines>
+            <ion-icon name="briefcase"></ion-icon>
+              <span padding>{{Ministry.ministryname}}</span>
+        </ion-item>
+        <div *ngIf="DisplayEditForms">
+            <div class="ion-item">
+                <ion-label stacked>Name</ion-label>
+                <ion-input #ministryname [(ngModel)]="Ministry.ministryname">{{Ministry.ministryname}}</ion-input>
+            </div>
+            <ion-item no-lines style="text-align: center;">
+                <span (click)="editMinistry('name',ministryname.value)">
+                    <ion-icon name="add-circle"></ion-icon>
+                </span>
+            </ion-item>
+        </div>
+
+        <ion-item no-lines>
+            <ion-icon name="call"></ion-icon>
+            <small padding>Contact Info:</small><br>
+            <span padding></span>
+            <span padding>{{Ministry.address}}</span>
+        </ion-item>
+    <div *ngIf="DisplayEditForms">
+    <div class="ion-item" no-lines>
+        <ion-label stacked>Address</ion-label>
+        <ion-textarea #ministryaddress [(ngModel)]="Ministry.address">{{Ministry.address}}</ion-textarea>
+    </div>
+    <ion-item no-lines style="text-align: center;">
+        <span (click)="editMinistry('address',ministryaddress.value)">
+        <ion-icon name="add-circle"></ion-icon>
+        </span>
+    </ion-item>
+    </div>
+
+
+        <ion-item no-lines>
+            <ion-icon name="globe"></ion-icon>
+            <small padding>Ministry Info:</small><br>
+            <span padding></span>
+            <span padding>{{Ministry.about}}</span>
+        </ion-item>
+    <div *ngIf="DisplayEditForms">
+    <div class="ion-item" no-lines>
+        <ion-label stacked>About</ion-label>
+        <ion-textarea #ministryabout [(ngModel)]="Ministry.about">{{Ministry.about}}</ion-textarea>
+    </div>
+    <ion-item no-lines style="text-align: center;">
+        <span (click)="editMinistry('about',ministryabout.value)">
+        <ion-icon name="add-circle"></ion-icon>
+        </span>
+    </ion-item>
+    </div>
+
+        <ion-item no-lines>
+            <ion-icon name="person"></ion-icon>
+            <span padding (click)="pushPage('UserprofilePage', {userid: Ministry.overseerid})">
+                Admin:
+                {{Ministry.firstname}} {{Ministry.surname}}
+            </span>
+        </ion-item>
+    </div>
+</ion-content>

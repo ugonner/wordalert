@@ -1,0 +1,189 @@
+<!--
+  Generated template for the UserprofilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>User Profile</ion-title>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+                        <ion-item no-lines>
+                        <ion-icon name="briefcase" padding></ion-icon>  Profile
+                            <span *ngIf='IsOwner' (click)="toggleDisplayEditForm()" item-right>
+                            <ion-icon name="create" item-right></ion-icon><small>Edit Profile</small>
+                            </span>
+                            <span *ngIf="localuserdata.functionid == 1" (click)="displayMakePastorForm()" item-right>
+                            <ion-icon name="create" item-right></ion-icon><small>Make Pastor</small>
+                            </span>
+
+
+                        </ion-item>
+
+                <div *ngIf="DisplaySpinner" style="text-align: center;">
+                    <ion-spinner></ion-spinner><br>
+                    {{LoadingMessage}}
+                </div>
+
+                    <p>{{ClassMessage}}</p>
+                    <div *ngIf="DisplayMakePastorForm">
+                            <ion-item no-lines>
+                            <ion-label stacked>Select Ministry</ion-label>
+                            <ion-select [(ngModel)]="MinistryId">
+                                <ion-option *ngFor="let ministry of Ministries; let i = index" value="{{ministry.ministryid}}">{{ministry.ministryname}}</ion-option>
+                            </ion-select>
+                            </ion-item>
+                            <ion-item no-lines style="text-align: center;">
+                                <span (click)="makePastor(userdata.get('id'))">
+                                    <ion-icon name="add-circle"></ion-icon>
+                                </span>
+                            </ion-item>
+                    </div>
+                    <!--image-->
+                    <div>
+                        <div *ngIf='IsOwner' hideWhen='android, ios' id="displayUserImage">
+                            <ion-item no-lines (click)="displayFilePicker()">
+                                <ion-avatar circle>
+                                    <img  id="userprofilepic" [src]="userdata.get('profilepic')">
+                                </ion-avatar>
+                            </ion-item>
+
+                            <form method="post" name="imageForm"  enctype="multipart/form-data">
+                                <ion-item no-lines >
+                                    <input  id="userprofilepicfile" #userprofilepicfile type="file" name="userprofilepic">
+                                </ion-item>
+
+                            </form>
+                        </div>
+
+                        <!--if platform is android<-->
+                        <div showWhen="android, ios">
+                            <ion-item no-lines>
+                                <ion-avatar circle (click)="selectCameraOptions()">
+                                    <img  id="userprofilepic" [src]="userdata.get('profilepic')">
+                                </ion-avatar>
+                            </ion-item>
+
+                        </div>
+
+                        <!--endif android or ios-->
+
+                        <div *ngIf="!IsOwner">
+                            <ion-item no-lines>
+                                <ion-avatar circle>
+                                    <img [src]="userdata.get('profilepic')">
+                                </ion-avatar>
+                            </ion-item>
+                        </div>
+
+                    <div padding>
+                    User Category: {{userdata.get('rolename') }}
+                    </div>
+                    <div>
+                        <div>
+                            <ion-icon name="mail" padding></ion-icon>Email: <b> {{userdata.get("email")}}</b>
+                        </div>
+                        <!--<ion-input #useremail type="text" name='email' placeholder='Email' required >
+                        </ion-input>
+
+                        <button ion-button (click)='editUser("email",useremail.value)' small >
+                        Save Edit
+                        </button>-->
+                    </div>
+
+                    <div *ngIf="userdata.get('public') == 'Y'">
+                    <ion-icon padding name="call"></ion-icon> Mobile <b>{{userdata.get("mobile")}}</b>
+                    <div [hidden]="DisplayEditForm">
+                        <ion-input #usermobile type="text" name='mobile' placeholder='mobile' value="{{userdata.get('mobile')}}" required >
+                        </ion-input>
+                        <ion-item (click)='editUser("mobile",usermobile.value)'>
+                            <ion-icon item-right name="play" small>  Save</ion-icon>
+                        </ion-item>
+                </div>
+                </div>
+
+
+                <div>
+                    <ion-icon padding name="card"></ion-icon> Firstname: <b>{{userdata.get("firstname")}}</b>
+                    <div [hidden]="DisplayEditForm">
+                    <ion-input #userfirstname type="text" name='firstname' placeholder='First Name' required value="{{userdata.get('firstname')}}">
+                    </ion-input>
+                    <ion-item (click)='editUser("firstname",userfirstname.value)'>
+                        <ion-icon name="play" small item-right >Save</ion-icon>
+                    </ion-item>
+                </div>
+                </div>
+
+
+                <div>
+                    <ion-icon padding name="card"></ion-icon> Surname <b>{{userdata.get("surname")}}</b>
+                    <div [hidden]="DisplayEditForm">
+                    <ion-input #usersurname type="text" name='surname' placeholder='Surname' required  value="{{userdata.get('surname')}}">
+                    </ion-input>
+
+                    <ion-item (click)='editUser("surname",usersurname.value)' small >
+                        <ion-icon name="play" item-right  small>Save</ion-icon>
+                    </ion-item>
+                </div>
+                </div>
+
+                <div>
+                    <ion-icon name="globe" padding></ion-icon> State: <b> {{userdata.get("state")}}</b><br/>
+                    <ion-icon name="globe" padding></ion-icon> LGA: <b> {{userdata.get("lga")}}</b>
+                    <div [hidden]="DisplayEditForm">
+                    <ion-item>
+                        <ion-select #userstate (ionChange)='getLgas(userstate.value)' name='state' placeholder='{{userdata.get("state")}}' >
+                        <ion-option *ngFor="let s of UserStates" value='{{s.id}}'>{{s.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-select #userlga name='lga' placeholder='Select LGA' [(ngModel)]='lgaid' >
+                        <ion-option *ngFor="let l of UserLgas" value='{{l.id}}'>{{l.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item (click)='editUser("location",{"stateid":userstate.value,"lgaid":userlga.value})' small >
+                        <ion-icon item-right name="play" small>Save</ion-icon>
+                    </ion-item>
+                </div>
+                </div>
+
+
+
+                <div [hidden]="DisplayEditForm" >
+                <ion-label>Change the visibility of your mobile number</ion-label>
+                <ion-item>
+                    <ion-select #public name='public'>
+                    <ion-option value="Y">Yes, Make Visible</ion-option>
+                    <ion-option value="N">No, Don't</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item (click)='editUser("public",public.value)' small >
+                    <ion-icon item-right name="play" small>Save</ion-icon>
+                </ion-item>
+                </div>
+                <ion-item>
+                </ion-item>
+                </div>
+
+
+    <div *ngIf="localuserdata.functionid == 1">
+    <ion-item no-lines (click)="displayMakePastorForm()">
+        <small>Make This User A Pastor</small>
+        <ion-icon name="create"  item-right></ion-icon>
+    </ion-item>
+    <ion-item no-lines (click)="pushPage('MinistriesPage', '' )">
+        <small>Create A New Ministry</small>
+        <ion-icon name="add"  item-right></ion-icon>
+    </ion-item>
+    </div>
+
+</ion-content>

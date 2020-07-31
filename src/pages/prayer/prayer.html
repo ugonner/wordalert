@@ -1,0 +1,99 @@
+<!--
+  Generated template for the PrayerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title *ngIf="Prayer.get('prayertypeid') == 1" >
+      Prayer
+    </ion-title>
+    <ion-title *ngIf="Prayer.get('prayertypeid') == 2" >
+      Testimony
+    </ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <div *ngIf="DisplaySpinner" style="text-align: center;">
+    <ion-spinner></ion-spinner><br>{{LoadingMessage}}
+    </div>
+
+    <ion-item no-lines *ngIf="Prayer.get('answered') == 'Y'">
+        <span item-end  padding style="background: #008800;">
+            <small>ANSWERED</small>
+        </span>
+    </ion-item>
+    <div>
+        <div padding style="background: #004400; box-shadow: 0 0 3px 1px #345; border-radius: 0 10px 0 0;">
+
+            By: <span (click)="pushPage('UserprofilePage', {userid: Prayer.get('userid')})"> {{Prayer.get('firstname')}} {{Prayer.get('surname')}}</span><br>
+            Made At: <span (click)="pushPage('PrayergroupPage', {groupid: Prayer.get('prayergroupid')})"> {{Prayer.get('groupname')}}</span><br>
+            On: <span> {{Prayer.get('dateofpublication')}}</span>
+
+            <div padding>
+                <p><i>{{Prayer.get('prayertext')}}</i></p>
+            </div>
+        </div>
+
+        <!--edit prayer if owner-->
+        <div *ngIf="IsOwner" style="text-align: right;">
+            <div  padding class="ion-item">
+                <ion-label stacked>Edit Text</ion-label>
+                <textarea #prayertext name="prayertext">{{Prayer.get('prayertext')}}</textarea>
+
+                <div>
+                    <span padding style="background: #008800;" (click)="editPrayer('prayertext', prayertext.value, Prayer.get('prayerid'))">
+                    <ion-icon name="checkbox"></ion-icon> Save Text
+                    </span>
+                    &nbsp; &nbsp;
+                    <span  padding style="background: #008800;" *ngIf="Prayer.get('answered') != 'Y'" (click)="editPrayer('answered', 'Y', Prayer.get('prayerid'))">
+                    <ion-icon name="checkbox-outline"></ion-icon> Mark Answered
+                    </span>
+
+                </div>
+
+        </div>
+
+        </div>
+        <ion-item no-lines>
+            <span item-right (click)="getPrayerFollowers(PrayerId)">
+                <ion-icon name="contacts"></ion-icon> <small>{{Prayer.get('noofprayeractions')}} <small>Praying On This.</small></small>
+            </span>
+            <span item-right *ngIf="Prayer.get('isfollowing') == 0" (click)="joinInPrayer(PrayerId, Prayer.get('userid'),' ',1)" >
+            <ion-icon name="add"></ion-icon> <small> join </small>
+            </span>
+        </ion-item>
+
+
+        <div *ngIf="PrayerFollowers">
+            <div *ngFor="let Follower of PrayerFollowers; let i = index">
+                <div>
+                    <img src="{{httpservice.hostdomain + Follower.profilepic}}" class="avatar-size-images" />
+                    <small>
+                    {{Follower.firstname}} {{Follower.surname}} <br>
+                    {{Follower.rolename}}
+                    | {{Follower.dateofpublication}}
+                    <br>
+                    </small>
+
+                    <span>
+                        <small>
+                        {{Follower.prayeractiontext}}
+                        </small>
+                    </span><br>
+
+                    <span *ngIf="LocalUserid == Follower.userid" (click)="renegeFromPrayer(PrayerId, i)">
+                        <small><small><ion-icon name="thumbs-down"></ion-icon> Renege</small></small>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

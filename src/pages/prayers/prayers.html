@@ -1,0 +1,76 @@
+<!--
+  Generated template for the PrayersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="dark">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title *ngIf="PrayerTypeId == 1">Prayers</ion-title>
+        <ion-title *ngIf="PrayerTypeId == 2">Testimonies</ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="PrayerTypeId == 1">
+    <ion-segment>
+        <ion-segment-button value="1" (click)="getPrayersByTypeId(1)">
+        all prayers
+        </ion-segment-button>
+        <ion-segment-button value="2" (click)="retrievePrayers(1)">
+        retrieve my prayers
+        </ion-segment-button>
+    </ion-segment>
+    </div>
+    <!--if testimony-->
+    <div *ngIf="PrayerTypeId == 2">
+    <ion-segment>
+        <ion-segment-button value="1" (click)="getPrayersByTypeId(2)">
+        all testimonies
+        </ion-segment-button>
+        <ion-segment-button value="2" (click)="retrievePrayers(2)">
+        Retrieve my Testimonies
+        </ion-segment-button>
+    </ion-segment>
+    </div>
+
+    <div *ngFor="let Prayer of Prayers; let i = index;">
+        <ion-item no-lines>
+            <span (click)="pushPage('PrayerPage', {prayerid: Prayer.prayerid})">
+                {{Prayer.prayertext.toString().substr(0, 60)}}
+            </span><br>
+            <span>
+                <small>
+                    <span *ngIf="Prayer.userid == UserId">
+                    <span *ngIf="Prayer.prayertypeid == 1">
+                        {{Prayer.noofprayeractions}} praying with you on this
+                    </span>
+                    <span *ngIf="Prayer.prayertypeid == 2">
+                        {{Prayer.noofprayeractions}} happy with you on this
+                    </span>
+                    </span>
+                </small>
+            <!--if not your prayer-->
+                <small>
+                    <span *ngIf="Prayer.userid != UserId">
+                    <span *ngIf="Prayer.prayertypeid == 1">
+                        {{Prayer.noofprayeractions}} praying on this
+                    </span>
+                    <span *ngIf="Prayer.prayertypeid == 2">
+                        {{Prayer.noofprayeractions}} happy on this
+                    </span>
+                    <span (click)="pushPage('UserprofilePage', {userid: Prayer.userid})">
+                    &nbsp; -- {{Prayer.firstname}} {{Prayer.surname}}
+                    </span>
+                    </span>
+                </small>
+            </span>
+        </ion-item>
+    </div>
+</ion-content>

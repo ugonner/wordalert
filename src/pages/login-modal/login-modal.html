@@ -1,0 +1,128 @@
+<!--
+  Generated template for the LoginModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content xmlns="http://www.w3.org/1999/html">
+    <div *ngIf="loginform; else registerform" >
+    <ion-item>
+        Sign In
+    </ion-item>
+
+
+    <div *ngIf="DisplaySpinner" style="text-align: center;">
+        <ion-spinner></ion-spinner><br>
+        {{LoadingMessage}}
+    </div>
+    <p>
+        {{TinyMessage}}
+    </p>
+
+        <ion-list no-lines item-text-wrap padding>
+                    <ion-item>
+                        <ion-label stacked>Email</ion-label>
+                        <ion-input #loginemail type="email" [(ngModel)]='Logindata.email' name='email'>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <span [hidden]="!displaypassword">{{Logindata.password}}</span>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked>Password: </ion-label>
+                        <ion-input #loginpassword type="password" [(ngModel)]='Logindata.password' name='password'>
+                        </ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>View Password</ion-label>
+                        <ion-checkbox [(ngModel)]='displaypassword' value='true'>
+                        </ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                        <span text-wrap (click)='loginUser()'>
+                            <b>Sign In</b>
+                        </span> |
+                        <span tem-text-wrap (click)='toggleForms()'>
+                           <b>Register</b>
+                        </span>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <!--registration section-->
+
+            <ng-template #registerform>
+            <form>
+                <ion-item>
+                    Register Here
+                </ion-item>
+                <ion-list no-lines item-text-wrap>
+                    <ion-item>
+                        <ion-label stacked>Email</ion-label>
+                        <ion-input #regemail type="email" [(ngModel)]='Regdata.email' name='email'>
+                        </ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label stacked>Password</ion-label>
+                        <ion-input #Regpassword type="password" [(ngModel)]='Regdata.password' name='password'>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <span [hidden]="!displaypassword">{{Regdata.password}}</span>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-checkbox [(ngModel)]='displaypassword' name="ViewPassword" value='true'>
+                        </ion-checkbox> View Password
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label stacked><b>Mobile</b></ion-label>
+                        <ion-input #regmobile type="tel" [(ngModel)]='Regdata.mobile' name='mobile' required >
+                        </ion-input>
+                    </ion-item>
+
+
+                    <ion-item>
+                        <ion-label stacked><b>FirstName</b></ion-label>
+                        <ion-input #regfirstname type="text" [(ngModel)]='Regdata.firstname' name='firstname' required>
+                        </ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label text-wrap>
+                            <b>Tick if you wouldn't mind sharing your mobile number with other people </b>
+                        </ion-label>
+                        <ion-checkbox [(ngModel)]='Regdata.public' name='public' value='Y'>
+                        </ion-checkbox>
+                    </ion-item>
+                    <ion-item>
+                        <p>
+                            {{TinyMessage}}
+                        </p>
+                    </ion-item>
+
+                    <ion-item>
+                        <span (click)='registerUser()'>
+                        <b>Register Me</b>
+                        </span> |
+
+                        <span (click)='toggleForms()'>
+                        <b>Sign In</b>
+                        </span>
+                    </ion-item>
+
+                    <ion-item text-wrap>
+                        <b>By registering, you agree with all our terms and conditions </b>
+                        <br><ion-spinner *ngIf='spinner'></ion-spinner>
+                    </ion-item>
+
+
+
+                </ion-list>
+                </form>
+            </ng-template>
+    </ion-content>

@@ -1,0 +1,233 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+    <ion-toolbar color="dark">
+        <ion-item no-lines>
+        <button ion-button menuToggle item-left>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Alerts</ion-title>
+        </ion-item>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+<div style="background: #222;">
+<div padding style="font-size: 4em; color: #ffffff; text-align: center;">
+    <ion-avatar>
+        <ion-icon name="stopwatch"></ion-icon>
+    </ion-avatar>
+</div>
+<div style="color: #ffffff;">
+    <div style="text-align: center">
+        <small>{{SlideName}}</small>
+    </div>
+
+    <div>
+        <ion-item no-lines>
+            <span (click)="presentOptionsAlert()">
+            <ion-icon name="settings"></ion-icon>
+            <small> {{AlarmType}}</small>
+            </span>
+            <span  padding (click)="pushPage('AlarmlistPage', {})">
+            <ion-icon name="archive"></ion-icon>
+            </span>
+
+            <span item-right [id]='PersonalSlideButton' (click)="slideToContent(0)" >
+            <ion-icon name="person" ></ion-icon>
+            </span>
+            <span item-right [id]='PrayergroupSlideButton' (click)="slideToContent(1)">
+            <ion-icon padding name="contacts"></ion-icon>
+            </span>
+            <span item-right (click)="slideToContent(2)" [id]='PastorsSlideButton'>
+            <ion-icon name="person-add"></ion-icon>
+            </span>
+        </ion-item>
+    </div>
+</div>
+
+</div>
+
+    <!--<div>
+        <ion-grid>
+            <ion-row style="text-align: center;">
+                <ion-col col-6>
+                    <ion-item no-lines (click)="presentOptionsAlert()">
+                    <ion-icon name="settings"></ion-icon>
+                      Option <small> {{AlarmType}}</small>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item no-lines (click)="pushPage('AlarmlistPage', {})">
+                    <ion-icon name="archive"></ion-icon>
+                      My Alerts
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>-->
+
+    <div padding>  </div>
+
+    <!--alarm time grid-->
+<div>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-2  style="text-align: center;">
+                <ion-icon name="clock"></ion-icon>
+                <br><span style="font-size: 0.7em; color: #ffff00;"><i>{{AlarmHour}} {{AlarmMin}}</i></span>
+            </ion-col>
+            <ion-col col-3>
+                <span padding class="timebadges" (click)="setHour()">
+                {{AlarmHour}}
+                </span>
+            </ion-col>
+
+
+            <ion-col col-3>
+                <span padding class="timebadges"  (click)="setMinute()">
+                {{AlarmMin}}
+                </span>
+            </ion-col>
+            <ion-col col-3>
+                <span padding  class="timebadges" (click)="setMeridian()">
+                {{AlarmAm}}
+                </span>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+</div>
+
+    <ion-slides #slides (ionSlideWillChange)="activateSegmentButton()">
+         <ion-slide>
+            <div padding> </div>
+            <div *ngIf="DisplaySpinner" style="text-align: center;">
+                <ion-spinner></ion-spinner><br>
+                {{LoadingMessage}}
+            </div>
+
+            <div [hidden]="DisplaySetAlarmForm">
+                <div>
+                    <div padding>  </div>
+
+                    <div id="man" *ngIf="DisplayQuotationForm; else proclamation">
+                    <ion-grid>
+                        <ion-row id="all">
+                            <ion-col col-2 style="text-align: center;">
+                                <ion-icon name="book"></ion-icon>
+                            </ion-col>
+
+                            <ion-col col-10>
+                                 <ion-row>
+                                     <ion-col>
+                                         <ion-item no-lines text-wrap>
+                                             <ion-label floating>Book</ion-label>
+                                             <ion-input type="text" [(ngModel)]="QuotationBook">
+                                             </ion-input>
+                                         </ion-item>
+
+                                         <ion-item no-lines text-wrap>
+                                             <ion-label floating>Chapter</ion-label><br>
+                                             <ion-input type="tel" [(ngModel)]="QuotationChapter">
+                                             </ion-input>
+                                         </ion-item>
+                                     </ion-col>
+                                 </ion-row>
+                                <ion-row>
+                                    <ion-col col-6>
+                                        <ion-item no-lines text-wrap>
+                                            <ion-label floating>From Verse:</ion-label>
+                                            <ion-input type="tel"  [(ngModel)]="QuotationVerse1">
+                                            </ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col col-6>
+                                        <ion-item no-lines>
+                                            <ion-label floating>To Verse</ion-label>
+                                            <ion-input type="tel" [(ngModel)]="QuotationVerse2">
+                                            </ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    </div>
+                    <div padding></div>
+                    <ion-item no-lines (click)="setPersonalAlarm()" style="text-align: center;">
+                        <ion-icon name="add-circle" style="font-size: 3em;"></ion-icon>
+                        <br> Save
+                    </ion-item>
+
+
+                    <ng-template #proclamation>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-2  style="text-align: center;">
+                                    <ion-icon name="book"></ion-icon>
+                                    <br><span style="font-size: 0.7em; color: #ffff00;"><i>word!</i></span>
+                                </ion-col>
+                                <ion-col col-10>
+                                    <ion-item no-lines>
+                                        <!--<ion-label floating>My Proclamation</ion-label>-->
+                                        <textarea style="background: transparent; border: 0;" placeholder="Type your proclamations" [(ngModel)]="AlarmText"></textarea>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ng-template>
+                </div>
+            </div><!--
+            {{DisplayQuotationForm}}-->
+        </ion-slide>
+
+        <ion-slide>
+            <span>
+                {{ErrMessage}}
+            </span>
+            <div padding></div>
+            <div *ngIf="DisplaySpinner" style="text-align: center;">
+                <ion-spinner></ion-spinner><br>
+                {{LoadingMessage}}
+            </div>
+
+            <ion-item no-lines>
+                <ion-label floating>Prayer Groups</ion-label>
+                <ion-select [(ngModel)]="PrayerGroupId">
+                    <ion-option *ngFor="let prayergroup of UserPrayerGroups" value="{{prayergroup.groupid}}">{{prayergroup.groupname}}</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <div padding></div>
+
+            <ion-item no-lines (click)="setPrayerGroupAlarm()" style="text-align: center;">
+            <ion-icon name="add-circle" style="font-size: 3em;"></ion-icon>
+            <br> Save
+            </ion-item>
+        </ion-slide>
+    s
+        <ion-slide>
+            <span>
+                {{ErrMessage}}
+            </span>
+            <div padding></div>
+            <div *ngIf="DisplaySpinner" style="text-align: center;">
+            <ion-spinner></ion-spinner><br>
+            {{LoadingMessage}}
+            </div>
+
+            <ion-item no-lines>
+                <ion-label stacked>Select Pastors</ion-label>
+                <ion-select [(ngModel)]="PastorId">
+                <ion-option *ngFor="let pastor of UserPastors" value="{{pastor.pastorid}}"> Pst. {{pastor.firstname}} {{pastor.surname}}</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <div padding></div>
+
+            <ion-item no-lines (click)="setPastorAlarm()" style="text-align: center;">
+            <ion-icon name="add-circle" style="font-size: 3em;"></ion-icon>
+            <br> Save
+            </ion-item>
+
+        </ion-slide>
+    </ion-slides>
+</ion-content>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

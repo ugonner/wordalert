@@ -14,3 +14,40 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-menu{
+  ion-content{
+    background-color:#345 !important;
+  }
+}
+    ion-item{
+      background-color:transparent !important;
+      color: #ffffff !important;
+      ion-input{
+        color: #fff !important;
+      }
+    }
+
+ion-content, ion-card, ion-card-content{
+  background: #111 !important;
+  /*background-color:darkblue !important;*/
+  color: #ffffff !important;
+}
+ion-segment-button{
+  color: #ffff00 !important;
+  font-weight: bold !important;
+}
+.overlays{
+  color: #ffffff !important;
+}
+.avatar-size-images{
+  width: 40px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.thumbnail-size-images{
+  width: 15px;
+  height: 10px;
+  margin-right: 5px;
+}

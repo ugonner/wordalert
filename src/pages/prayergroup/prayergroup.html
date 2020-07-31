@@ -1,0 +1,190 @@
+<!--
+  Generated template for the PrayergroupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header xmlns="http://www.w3.org/1999/html">
+
+  <ion-navbar color="dark">
+    <ion-title>Prayer Group</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <div #GroupContent>
+    <div *ngIf="NoOfMembers">
+        <span class="menuspans" *ngIf="IsAMember" padding>
+           <ion-icon name="walk" (click)="leaveGroup(Admin.groupid)"></ion-icon>
+        </span>
+        <span class="menuspans" *ngIf="!IsAMember" padding>
+            <ion-icon (click)="joinGroup(Admin.groupid)" name="add"></ion-icon>
+        </span>
+        <span class="menuspans">
+            <ion-icon (click)="getGroupAlerts(Admin.groupid)" name="archive"></ion-icon>
+        </span>
+        <span *ngIf="IsAdmin">
+            <span class="menuspans" padding>
+                <ion-icon (click)="setAlert()" name="alarm"></ion-icon>
+                <sup><ion-icon name="add"></ion-icon></sup>
+            </span>
+        </span>
+        <span class="menuspans" (click)="viewGroupMembers()">
+            <ion-icon name="contacts"></ion-icon>
+            <sup><span style="border-radius: 50%;">
+                {{NoOfMembers - 1}}
+            </span>
+            </sup>
+        </span>
+    </div>
+    <div *ngIf="Admin">
+        <ion-item no-lines>
+           <i>Grooup Name</i> | {{Admin.groupname}}<br>
+           <i>Admin </i> | <span (click)="pushPage('UserprofilePage',{userid: Admin.userid})">
+                {{Admin.firstname}}
+            </span>
+        </ion-item>
+    </div>
+
+    <div *ngIf="DisplaySpinner" style="text-align: center;">
+        <ion-spinner></ion-spinner><br>{{LoadingMessage}}
+    </div>
+
+    <div *ngIf="IsAMember" style="text-align: center;">
+    <ion-segment [(ngModel)]="PrayerTypeId">
+        <ion-segment-button (click)="toggleRequestForm()" value="1">
+            <small>Share Prayer</small>
+        </ion-segment-button>
+        <ion-segment-button (click)="toggleRequestForm()" value="2">
+            <small>Share Testimony</small>
+        </ion-segment-button>
+    </ion-segment>
+    <div *ngIf="DisplayRequestForm">
+        <ion-label stacked>Share</ion-label>
+        <ion-textarea #prayertext placeholder="Add text"></ion-textarea>
+        <span  padding (click)="addPrayer(prayertext.value)" style="background: #344; border-radius: 50%;">
+            <ion-icon name="share"></ion-icon>
+        </span>
+
+    </div>
+    </div>
+
+    <div *ngIf="SetAlertForm">
+        <div>
+            <ion-segment>
+                <ion-segment-button (click)="setQuotationForm()" value=true>
+                    Quotation Text
+                </ion-segment-button>
+                <ion-segment-button (click)="setProclamationForm()" value=false>
+                    Proclamation Text
+                </ion-segment-button>
+            </ion-segment>
+
+            <div padding></div>
+            <div *ngIf="DisplayQuotationForm">
+             <ion-item no-lines>
+                    <ion-label stacked>Book</ion-label>
+                    <ion-input name="AlertBook" [(ngModel)]="AlertBook"></ion-input>
+                </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked>Chapter</ion-label>
+                <ion-input name="AlertChapter" [(ngModel)]="AlertChapter"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked>From Verse </ion-label>
+                <ion-input name="AlertBook" [(ngModel)]="AlertVerse1"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked>To Verse</ion-label>
+                <ion-input name="AlertBook" [(ngModel)]="AlertVerse2"></ion-input>
+            </ion-item>
+            <div style="text-align: center; font-size: 4em;">
+                <span  (click)="createGroupQuotationAlert(Admin.groupid)">
+                <ion-icon name="add"></ion-icon>
+                </span>
+            </div>
+            </div>
+            <div>
+                <ion-item no-lines>
+                    <!--<label stacked>Proclamation</label><br>-->
+                    <textarea style="background: transparent; border: 0;" placeholder="type in proclamation for group" name="proclamation" [(ngModel)]="AlertText"></textarea>
+                </ion-item>
+                <div style="text-align: center; font-size: 4em;">
+                    <span (click)="createGroupProclamationAlert(Admin.groupid)">
+                        <ion-icon name="add"></ion-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div padding></div>
+    <div *ngIf="DisplayPrayers">
+        <ion-item no-lines>
+            Testimonies & Prayer Requests
+        </ion-item>
+        <div padding class="ion-item" *ngFor="let prayer of Prayers; let i = index" trackBy="trackArrayObjects(i, prayer)">
+            <span (click)="pushPage('PrayerPage', {prayerid: prayer.prayerid})">{{prayer.prayertext.substr(0.75)}}</span>
+            <div (click)="pushPage('UserprofilePage', {userid: prayer.userid})">
+                <img src="{{httpservice.hostdomain + prayer.profilepic}}" class="thumbnail-size-images" />
+                <small>
+                    {{prayer.firstname}}
+                </small>
+            </div>
+            <span>
+                <small padding>
+                    <span  *ngIf="prayer.isfollowingprayer == 0">
+                        <ion-icon name="thunbs-up" (click)="joinPrayer(prayer.prayerid,prayer.userid,' ',i)"></ion-icon>
+
+                        <span (click)="getPrayerFollowers(prayer.prayerid)">
+                            &nbsp;&nbsp;<i>{{prayer.noofprayeractions}} praying on this</i>
+                        </span>
+                    </span>
+                    <span  *ngIf="prayer.isfollowingprayer == 1">
+                        <ion-icon name="thumbs-down" (click)="leavePrayer(prayer.prayerid,i)"></ion-icon>
+
+                        <span (click)="getPrayerFollowers(prayer.prayerid)">
+                        &nbsp;&nbsp;<i>You And {{prayer.noofprayeractions - 1}} person(s) praying on this</i>
+                        </span>
+                    </span>
+                </small>
+            </span>
+        </div>
+    </div>
+
+    <div padding></div>
+
+    <ion-list *ngIf="DisplayMembers else alerts">
+        <ion-item no-lines>
+            Members
+        </ion-item>
+        <div *ngFor="let member of Members; let i = index;" class="memberdivs"
+        style="border-radius: 10px; background: #234; margin: 5px 0 5px 0;">
+            <div (click)="pushPage('UserprofilePage',{userid: member.userid})" padding>
+                <img src="{{httpservice.hostdomain + member.profilepic}}" class="avatar-size-images" />
+                {{member.firstname.toLowerCase()}}
+            </div>
+        </div>
+    </ion-list>
+    <ng-template #alerts>
+
+    <ion-item no-lines>
+        Prayer Messages
+    </ion-item>
+    <div *ngFor="let alert of GroupAlerts; let i = index;" class="memberdivs"
+    style="border-radius: 10px; background: #234; margin: 5px 0 5px 0;">
+    <div padding>
+        <span (click)="presentAlertText(alert.alarmtext)">
+            {{alert.title.toLowerCase()}}
+        </span><br>
+        <small>
+            <small>{{alert.alarmtype}} | {{alert.setdate}}</small>
+        </small>
+    </div>
+    </div>
+    </ng-template>
+    </div>
+</ion-content>
